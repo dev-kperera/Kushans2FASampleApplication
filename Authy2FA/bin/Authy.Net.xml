@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Authy.Net</name>
+    </assembly>
+    <members>
+        <member name="T:Authy.Net.AuthyResult">
+            <summary>
+            A base authy result
+            </summary>
+        </member>
+        <member name="P:Authy.Net.AuthyResult.Status">
+            <summary>
+            The status of a request
+            </summary>
+        </member>
+        <member name="P:Authy.Net.AuthyResult.RawResponse">
+            <summary>
+            The raw response returned from the API
+            </summary>
+        </member>
+        <member name="P:Authy.Net.AuthyResult.Success">
+            <summary>
+            The request was success
+            </summary>
+        </member>
+        <member name="P:Authy.Net.AuthyResult.Message">
+            <summary>
+            The message from the API
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Authy.Net.AuthyResult.Errors" -->
+        <member name="T:Authy.Net.AuthyStatus">
+            <summary>
+            The status of an authy call 
+            </summary>
+        </member>
+        <member name="F:Authy.Net.AuthyStatus.Success">
+            <summary>
+            The call was sucessful and everything is OK
+            </summary>
+        </member>
+        <member name="F:Authy.Net.AuthyStatus.BadRequest">
+            <summary>
+            The request was invalid.  Check the raw response for more information.
+            </summary>
+        </member>
+        <member name="F:Authy.Net.AuthyStatus.Unauthorized">
+            <summary>
+            The request was unauthorized. This could mean that an API key is wrong or it could mean that a token is incorrect. Check the raw response for more information.
+            </summary>
+        </member>
+        <member name="F:Authy.Net.AuthyStatus.ServiceUnavailable">
+            <summary>
+            The service is unavailable.  This usually means that the API call limit has been exceded
+            </summary>
+        </member>
+        <member name="T:Authy.Net.AuthyClient">
+             <summary>
+             Client for interacting with the Authy API
+             </summary>
+             <remarks>
+             This library is threadsafe since the only shared state is stored in private readonly fields.
+            
+             Creating a single instance of the client and using it across multiple threads isn't a problem.
+             </remarks>
+        </member>
+        <member name="M:Authy.Net.AuthyClient.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates an instance of the Authy client
+            </summary>
+            <param name="apiKey">The api key used to access the rest api</param>
+            <param name="test">indicates that the sandbox should be used</param>
+        </member>
+        <member name="M:Authy.Net.AuthyClient.RegisterUser(System.String,System.String,System.Int32)">
+            <summary>
+            Register a user
+            </summary>
+            <param name="email">Email address</param>
+            <param name="cellPhoneNumber">Cell phone number</param>
+            <param name="countryCode">Country code</param>
+            <returns>RegisterUserResult object containing the details about the attempted register user request</returns>
+        </member>
+        <member name="M:Authy.Net.AuthyClient.VerifyToken(System.String,System.String,System.Boolean)">
+            <summary>
+            Verify a token with authy
+            </summary>
+            <param name="userId">The Authy user id</param>
+            <param name="token">The token to verify</param>
+            <param name="force">Force verification to occur even if the user isn't registered (if the user hasn't finished registering the deefault is to succesfully validate)</param>
+        </member>
+        <member name="M:Authy.Net.AuthyClient.SendSms(System.String,System.Boolean)">
+            <summary>
+            Send an SMS message to a user who isn't registered.  If the user is registered with a mobile app then no message will be sent.
+            </summary>
+            <param name="userId">The user ID to send the message to</param>
+            <param name="force">Force a message to be sent even if the user is already reigistered as an app user.  This will incrase your costs</param>
+        </member>
+        <member name="M:Authy.Net.AuthyClient.StartPhoneCall(System.String,System.Boolean)">
+            <summary>
+            Send the token via phone call to a user who isn't registered.  If the user is registered with a mobile app then the phone call will be ignored.
+            </summary>
+            <param name="userId">The user ID to send the phone call to</param>
+            <param name="force">Force to the phone call to be sent even if the user is already reigistered as an app user.  This will incrase your costs</param>
+        </member>
+        <member name="T:Authy.Net.RegisterUserResult">
+            <summary>
+            The result of a request to register a user
+            </summary>
+        </member>
+        <member name="P:Authy.Net.RegisterUserResult.UserId">
+            <summary>
+            The user id of a succesful registration event
+            </summary>
+        </member>
+        <member name="P:Authy.Net.RegisterUserResult.User">
+            <summary>
+            The user information on Authy API
+            </summary>
+        </member>
+        <member name="T:Authy.Net.SendSmsResult">
+            <summary>
+            Result from sending an SMS
+            </summary>
+        </member>
+        <member name="T:Authy.Net.VerifyTokenResult">
+            <summary>
+            The result of a request to verify a token
+            </summary>
+        </member>
+        <member name="P:Authy.Net.VerifyTokenResult.Token">
+            <summary>
+            Confirmation if token is valid or invalid
+            </summary>
+        </member>
+        <member name="M:Authy.Net.AuthyHelpers.SanitizeNumber(System.String)">
+            <summary>
+             Remove all non-digits from the string
+             </summary>
+            <param name="value">The string to sanitize</param>
+        </member>
+        <member name="M:Authy.Net.AuthyHelpers.TokenIsValid(System.String)">
+            <summary>
+             Validate the token entered by the user
+             </summary>
+             <param name="token">The token to validate</param>
+        </member>
+        <member name="M:Authy.Net.AuthyHelpers.GetVersion">
+            <summary>
+            Gets the version of the Assembly.
+            </summary>
+            <returns>The version.</returns>
+        </member>
+        <member name="M:Authy.Net.AuthyHelpers.GetSystemInfo">
+            <summary>
+            Get the system information
+            </summary>
+            <returns>The .NET version</returns>
+        </member>
+    </members>
+</doc>
